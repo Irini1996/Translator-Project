@@ -26,9 +26,9 @@ flowchart TB
     I --> J
     I --> K
 
+
 ## X12 to JSON Conversion and Viewer Flow
 
-```mermaid
 flowchart TB
     A[Receive X12 837P file]
     B[Parse raw EDI text]
