@@ -1,4 +1,3 @@
-```markdown
 ## X12 to JSON Conversion and Viewer Flow
 
 ```mermaid
