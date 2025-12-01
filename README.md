@@ -1,6 +1,6 @@
 # Translator-Project
-## Elizabeth Claim Flow
 
+## Elizabeth Claim Flow
 ```mermaid
 flowchart TB
     A[Elizabeth visits doctor]
@@ -25,28 +25,3 @@ flowchart TB
     H --> I
     I --> J
     I --> K
-
-
-## X12 to JSON Conversion and Viewer Flow
-
-flowchart TB
-    A[Receive X12 837P file]
-    B[Parse raw EDI text]
-    C[Split text into segments using ~]
-    D[Split each segment into elements using *]
-    E[Identify segment types NM1, CLM, SV1, DTP, HI, etc.]
-    F[Map segments to structured data fields]
-    G[Generate JSON object representing the claim]
-    H[Send JSON data to web application]
-    I[Render claim in human-readable format]
-    J[User reviews claim information]
-
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-    H --> I
-    I --> J
