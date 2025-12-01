@@ -1,15 +1,16 @@
 # Translator-Project
-## Elizabeth Claim Flow (Provider → Clearinghouse → Medicaid → Back)
+## Elizabeth Claim Flow
 
 ```mermaid
 flowchart LR
-    A[Elizabeth visits Doctor] --> B[Provider creates Claim]
+    A[Elizabeth visits doctor] --> B[Provider creates claim]
     B --> C[Claim becomes X12 837P file]
-    C --> D[Provider sends X12 to Clearinghouse]
-    D --> E[Clearinghouse checks formatting • fixes errors]
-    E --> F[Clearinghouse forwards X12 to Medicaid (Payer)]
+    C --> D[Provider sends X12 to clearinghouse]
+    D --> E[Clearinghouse checks formatting and errors]
+    E --> F[Clearinghouse forwards X12 to Medicaid payer]
     F --> G[Medicaid receives the claim]
-    G --> H[Adjudication: Eligibility • Coverage • Pricing]
-    H --> I[Decision: Pay • Adjust • Deny]
-    I --> J[835 Payment/ERA sent back to Provider]
-    I --> K[999/277 Status files sent back to Provider]
+    G --> H[Adjudication: eligibility, coverage, pricing]
+    H --> I[Decision: pay, adjust, or deny]
+    I --> J[835 payment sent back to provider]
+    I --> K[999 or 277 status sent back to provider]
+
