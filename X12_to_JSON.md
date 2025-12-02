@@ -22,7 +22,7 @@ D[Split each segment using *
 ----
 Example:
 NM1 split:
-NM1, 41, 2, PREMIER BILLING SERVICE, ..., 46, TGJ23] --> E
+NM1, 41, 2, PREMIER BILLING SERVICE, 46, TGJ23] --> E
 
 E[Identify segment types
 ----
@@ -35,18 +35,18 @@ DTP = Date] --> F
 F[Map segments to structured fields
 ----
 Example:
-Submitter = NM1(41)
-Receiver = NM1(40)
-Claim header = CLM
-Diagnosis = HI
-Service line = SV1] --> G
+Submitter = NM1 code 41
+Receiver = NM1 code 40
+Claim header = CLM segment
+Diagnosis = HI segment
+Service line = SV1 segment] --> G
 
 G[Generate JSON object
 ----
 Example:
-transaction {...}
-submitter {...}
-claim {...}] --> H
+transaction data
+submitter data
+claim data] --> H
 
 H[Send JSON to web app
 ----
@@ -63,5 +63,5 @@ DX 0340] --> J
 J[User reviews claim
 ----
 Example:
-User validates final output]
+User validates output]
 ```
