@@ -1,3 +1,5 @@
+````markdown
+```mermaid
 flowchart LR
 
     %% LEFT SIDE MAIN FLOW
@@ -13,16 +15,16 @@ flowchart LR
     J[User reviews claim]
 
     %% RIGHT SIDE EXAMPLES
-    Aex[Example:\nST*837*0021~]
-    Bex[Example:\nRaw text loaded]
-    Cex[Example:\nSegments:\nST*837*0021\nBHT*0019*00*0123...]
-    Dex[Example:\nNM1 split:\nNM1 | 41 | 2 | PREMIER BILLING SERVICE]
-    Eex[Example:\nNM1 = name\nCLM = claim\nSV1 = service line]
-    Fex[Example:\nMapping:\nNM1 submitter, CLM claim header]
-    Gex[Example:\nJSON object created]
-    Hex[Example:\nPOST /claims/parse]
-    Iex[Example:\nClaim 26462967\nTotal 100\nDX 0340]
-    Jex[Example:\nUser validates claim]
+    Aex[Example: ST*837*0021~]
+    Bex[Example: Raw text loaded]
+    Cex[Example: Segments: ST*837*0021 ...]
+    Dex[Example: NM1 split: NM1 | 41 | PREMIER BILLING SERVICE]
+    Eex[Example: NM1 = name, CLM = claim]
+    Fex[Example: Mapping NM1 submitter, CLM claim]
+    Gex[Example: JSON object created]
+    Hex[Example: POST /claims/parse]
+    Iex[Example: Claim 26462967 Total 100 DX 0340]
+    Jex[Example: User validates claim]
 
     %% CONNECTION ARROWS TO RIGHT BOXES
     A -.-> Aex
