@@ -1,4 +1,3 @@
-
 ```mermaid
 flowchart LR
 
@@ -15,18 +14,18 @@ flowchart LR
     J[User reviews claim]
 
     %% RIGHT SIDE EXAMPLES
-    Aex[Example: ST*837*0021~]
-    Bex[Example: Raw text loaded]
-    Cex[Example: Segments: ST*837*0021 ...]
-    Dex[Example: NM1 split: NM1 | 41 | PREMIER BILLING SERVICE]
-    Eex[Example: NM1 = name, CLM = claim]
-    Fex[Example: Mapping NM1 submitter, CLM claim]
-    Gex[Example: JSON object created]
-    Hex[Example: POST /claims/parse]
-    Iex[Example: Claim 26462967 Total 100 DX 0340]
-    Jex[Example: User validates claim]
+    Aex["ST*837*0021~"]
+    Bex["Raw file loaded as text"]
+    Cex["Segments list:\n['ST*837*0021', 'BHT*0019*00*0123', ...]"]
+    Dex["NM1 split:\nNM1 \\| 41 \\| PREMIER BILLING SERVICE"]
+    Eex["Segment roles:\nNM1=name\nCLM=claim header\nSV1=service line"]
+    Fex["Mapping:\nNM1=submitter\nNM1=receiver\nCLM=claim"]
+    Gex["Generated JSON object"]
+    Hex["POST /claims/parse"]
+    Iex["Rendered claim:\n#26462967\nTotal $100\nDX 0340"]
+    Jex["User validates claim"]
 
-    %% CONNECTION ARROWS TO RIGHT BOXES
+    %% CONNECTION ARROWS
     A -.-> Aex
     B -.-> Bex
     C -.-> Cex
