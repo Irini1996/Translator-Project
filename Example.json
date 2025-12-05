@@ -233,6 +233,79 @@
       "state": "FL",
       "zip": "33111"
     }
+  },
+"Service_Lines": [
+  "ServiceLines",
+  "Each service line describes one billed medical service.",
+  
+  "LX*1~ = Service line counter.",
+  "1 = First billed service.",
+
+  "SV1*HC:99213*40*UN*1***1**N~ = Service line details.",
+  "HC = Healthcare Common Procedure Coding System (HCPCS) code qualifier.",
+  "99213 = Procedure code (Office Visit, Established Patient).",
+  "40 = Charge amount.",
+  "UN = Unit qualifier.",
+  "1 = Number of units.",
+  "1 (in position 7) = Diagnosis pointer (link to primary diagnosis).",
+  "N = Not emergency service.",
+
+  "DTP*472*D8*19981003~ = Date of service.",
+  "472 = Service date qualifier.",
+  "D8 = Single date format.",
+  "19981003 = Date of visit.",
+
+  "LX*2~ / SV1*87072 / 15 / UN / 1 ... = Second service line (lab test).",
+
+  "LX*3~ / SV1*99214*35*UN*1 ... = Third service line (Follow-up visit).",
+
+  "LX*4~ / SV1*86663*10*UN*1 ... = Fourth service line (Mono test)."
+],
+"service_Lines": [
+  {
+    "lineNumber": 1,
+    "codeQualifier": "HC",
+    "procedureCode": "99213",
+    "charge": 40,
+    "unitQualifier": "UN",
+    "units": 1,
+    "diagnosisPointer": 1,
+    "emergencyIndicator": "N",
+    "serviceDate": "1998-10-03"
+  },
+  {
+    "lineNumber": 2,
+    "codeQualifier": "HC",
+    "procedureCode": "87072",
+    "charge": 15,
+    "unitQualifier": "UN",
+    "units": 1,
+    "diagnosisPointer": 1,
+    "emergencyIndicator": "N",
+    "serviceDate": "1998-10-03"
+  },
+  {
+    "lineNumber": 3,
+    "codeQualifier": "HC",
+    "procedureCode": "99214",
+    "charge": 35,
+    "unitQualifier": "UN",
+    "units": 1,
+    "diagnosisPointer": 2,
+    "emergencyIndicator": "N",
+    "serviceDate": "1998-10-10"
+  },
+  {
+    "lineNumber": 4,
+    "codeQualifier": "HC",
+    "procedureCode": "86663",
+    "charge": 10,
+    "unitQualifier": "UN",
+    "units": 1,
+    "diagnosisPointer": 2,
+    "emergencyIndicator": "N",
+    "serviceDate": "1998-10-10"
   }
+]
 
 }
