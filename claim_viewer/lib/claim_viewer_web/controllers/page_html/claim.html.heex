@@ -1,0 +1,32 @@
+<div style="padding: 30px; background: #0f172a; min-height: 100vh; color: white;">
+
+  <%= for item <- @json do %>
+
+    <!-- SECTION TITLE -->
+    <h2 style="
+      margin-top: 40px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #38bdf8;
+      border-bottom: 2px solid #38bdf8;
+      padding-bottom: 6px;
+    ">
+      <%= String.upcase(item["section"]) %>
+    </h2>
+
+    <!-- SECTION DATA -->
+    <pre style="
+      background: #020617;
+      color: #22c55e;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 10px;
+      overflow-x: auto;
+      font-size: 14px;
+    ">
+<%= Jason.encode!(item["data"], pretty: true) %>
+    </pre>
+
+  <% end %>
+
+</div>

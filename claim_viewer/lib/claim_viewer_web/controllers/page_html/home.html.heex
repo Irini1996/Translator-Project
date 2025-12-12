@@ -1,0 +1,104 @@
+<div class="space-y-6 bg-gray-900 min-h-screen p-6">
+
+<a href="/" class="inline-block mb-6">
+  <h1 class="text-3xl text-white font-bold hover:underline cursor-pointer">
+    Claim Viewer
+  </h1>
+</a>
+
+
+  <!-- Upload JSON -->
+<form
+  action="/upload"
+  method="post"
+  enctype="multipart/form-data"
+  id="upload-form"
+  class="mb-6"
+>
+  <!-- CSRF TOKEN (ΑΠΑΡΑΙΤΗΤΟ) -->
+  <input
+    type="hidden"
+    name="_csrf_token"
+    value={Plug.CSRFProtection.get_csrf_token()}
+  />
+
+  <input
+    type="file"
+    name="file"
+    accept=".json"
+    id="file-input"
+    style="display: none;"
+  />
+
+  <button
+    type="button"
+    class="px-4 py-2 bg-blue-600 text-white rounded"
+    onclick="document.getElementById('file-input').click()"
+  >
+    Upload JSON
+  </button>
+</form>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const fileInput = document.getElementById("file-input");
+    const form = document.getElementById("upload-form");
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files.length > 0) {
+        form.submit();
+      }
+    });
+  });
+</script>
+
+
+
+  <!-- If database is empty -->
+  <%= if @json == [] do %>
+    <p class="text-white mt-4">No claim loaded yet.</p>
+  <% end %>
+
+  <!-- Accordion Viewer -->
+ <%= if @show_claim do %>
+  <%= for section <- @json do %>
+    <details class="bg-gray-800 rounded-lg mb-4">
+      <summary class="cursor-pointer px-4 py-3 text-white font-semibold text-lg">
+        <%= String.upcase(section["section"]) %>
+      </summary>
+
+      <div class="p-4 bg-gray-100 text-black overflow-x-auto">
+        <%= if section["section"] == "service_Lines" do %>
+          <table class="min-w-full bg-white border text-sm">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="border px-2 py-1">Line</th>
+                <th class="border px-2 py-1">Code</th>
+                <th class="border px-2 py-1">Charge</th>
+                <th class="border px-2 py-1">Units</th>
+                <th class="border px-2 py-1">Date</th>
+                <th class="border px-2 py-1">Emergency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= for line <- section["data"] do %>
+                <tr>
+                  <td class="border px-2 py-1"><%= line["lineNumber"] %></td>
+                  <td class="border px-2 py-1"><%= line["procedureCode"] %></td>
+                  <td class="border px-2 py-1"><%= line["charge"] %></td>
+                  <td class="border px-2 py-1"><%= line["units"] %></td>
+                  <td class="border px-2 py-1"><%= line["serviceDate"] %></td>
+                  <td class="border px-2 py-1"><%= line["emergencyIndicator"] %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <pre class="text-sm"><%= inspect(section["data"], pretty: true) %></pre>
+        <% end %>
+      </div>
+    </details>
+  <% end %>
+<% end %>
+</div> 
