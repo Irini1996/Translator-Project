@@ -78,7 +78,7 @@
     
     <!-- Patient First Name -->
     <div style="position:relative;">
-      <input id="patient_first" name="patient_first" value={@patient_first} placeholder="Patient first name" style="background:#020617;border:2px solid #06b6d4;color:white;padding:10px 30px 10px 10px;border-radius:8px;width:100%;" />
+      <input id="patient_first" name="patient_first" value={@patient_first} placeholder="Member first name" style="background:#020617;border:2px solid #06b6d4;color:white;padding:10px 30px 10px 10px;border-radius:8px;width:100%;" />
       <%= if @patient_first != "" do %>
         <button type="button" onclick="document.getElementById('patient_first').value=''; document.getElementById('patient_first').focus();" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:20px;padding:0;width:24px;height:24px;line-height:1;">×</button>
       <% end %>
@@ -87,7 +87,7 @@
     
     <!-- Patient Last Name -->
     <div style="position:relative;">
-      <input id="patient_last" name="patient_last" value={@patient_last} placeholder="Patient last name" style="background:#020617;border:2px solid #06b6d4;color:white;padding:10px 30px 10px 10px;border-radius:8px;width:100%;" />
+      <input id="patient_last" name="patient_last" value={@patient_last} placeholder="Member last name" style="background:#020617;border:2px solid #06b6d4;color:white;padding:10px 30px 10px 10px;border-radius:8px;width:100%;" />
       <%= if @patient_last != "" do %>
         <button type="button" onclick="document.getElementById('patient_last').value=''; document.getElementById('patient_last').focus();" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#94a3b8;cursor:pointer;font-size:20px;padding:0;width:24px;height:24px;line-height:1;">×</button>
       <% end %>
@@ -208,7 +208,7 @@
 <table class="fade-in" style="width:100%; margin-top:10px; border-collapse:collapse;">
         <thead>
           <tr style="border-bottom:2px solid #38bdf8;">
-            <th align="left">Patient</th>
+            <th align="left">Member</th>
             <th align="left">Payer</th>
             <th align="left">Claim #</th>
           </tr>
@@ -370,7 +370,7 @@
         
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px 24px;">
           <div>
-            <span style="color:#94a3b8; font-size:13px;">Patient:</span>
+            <span style="color:#94a3b8; font-size:13px;">Member:</span>
             <span style="color:white; font-weight:600; margin-left:8px;">
               <%= subscriber_data["firstName"] %> <%= subscriber_data["lastName"] %>
               <%= if subscriber_data["dob"] do %>
@@ -414,12 +414,12 @@
             <span style={"color:#{status_color}; font-weight:700; margin-left:8px;"}><%= status %></span>
           </div>
           
-          <%= if rendering_npi != "" do %>
-            <div>
-              <span style="color:#94a3b8; font-size:13px;">Rendering Provider NPI:</span>
-              <span style="color:white; font-weight:600; margin-left:8px;"><%= rendering_npi %></span>
-            </div>
-          <% end %>
+          <div>
+  <span style="color:#94a3b8; font-size:13px;">Rendering Provider NPI:</span>
+  <span style="color:white; font-weight:600; margin-left:8px;">
+    <%= if rendering_npi != "", do: rendering_npi, else: "" %>
+  </span>
+</div>
         </div>
       </div>
 
@@ -445,6 +445,20 @@
             |> to_string()
             |> String.downcase()
           %>
+
+<%
+  # Determine transaction type for override
+  transaction_type = if String.contains?(section_name, "transaction") do
+    cond do
+      String.contains?(version, "X222") -> "837P"
+      String.contains?(version, "X223") -> "837I"
+      String.contains?(version, "X224") -> "837D"
+      true -> "837"
+    end
+  else
+    ""
+  end
+%>
 
           <!-- ===== MAP SECTIONS ===== -->
           <%= if is_map(data) and data != %{} do %>
@@ -509,6 +523,8 @@
             <% end %>
 
             <!-- ===== ΥΠΟΛΟΙΠΑ ΠΕΔΙΑ ===== -->
+
+
             <%= for {k, v} <- data do %>
 
               <%= if k not in ["name","firstName","lastName","address","extension"] do %>
@@ -558,7 +574,14 @@
                   <% display_value = if is_date_field, do: format_date(v), else: v %>
                   
                   <p>
-                    <b><%= human_label(k) %>:</b> <%= display_value %>
+                    <p>
+  <b><%= human_label(k) %>:</b> 
+  <%= if k == "type" and String.contains?(section_name, "transaction") do %>
+    <%= transaction_type %>
+  <% else %>
+    <%= display_value %>
+  <% end %>
+</p>
                   </p>
 
                 <% end %>
