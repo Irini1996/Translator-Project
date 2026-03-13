@@ -52,7 +52,13 @@ python3 -m pip install pyx12
 mix deps.get
 
 # Configure database
-# Edit config/dev.exs with your PostgreSQL credentials.
+# Store credentials in environment variables (recommended for security):
+export PGUSER="your_username"
+export PGPASSWORD="your_password"
+export PGDATABASE="claim_viewer_dev"
+export PGHOST="localhost"
+
+# Alternatively, edit config/dev.exs with your credentials (not recommended for production)
 
 
 # Create and migrate database
@@ -64,6 +70,10 @@ mix phx.server
 ```
 
 Visit **http://localhost:4000** in your browser.
+
+## Security Note
+
+**Database Credentials:** Never commit database credentials directly to version control. Use environment variables or store them in shell configuration files (~/.bashrc, ~/.zshrc) for better security.
 
 ## Usage
 
